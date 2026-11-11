@@ -1,0 +1,21 @@
+OZON PRICE TRACKER — БЫСТРЫЙ СТАРТ (macOS)
+
+1. Получить исходники:
+   cd ~/Downloads
+   git clone https://github.com/Vlad-gw/parser_ozon_price.git ozon-price-tracker-pro
+   cd ozon-price-tracker-pro
+
+2. Подготовить окружение:
+   bash setup.command
+
+3. Заполнить файл .env (токен BotFather и числовой Chat ID):
+   nano .env
+
+4. Запустить:
+   bash start.command
+
+5. Открыть в обычном Chrome:
+   http://127.0.0.1:8000
+
+Не публикуйте .env и содержимое data/ в GitHub.
+Подробнее — README.md.

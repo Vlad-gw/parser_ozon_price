@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1122">
+  <title>Ozon Price Tracker 2.0 — мониторинг скидок</title>
+  <link rel="icon" href="/favicon.ico" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <div class="logo"><div class="logo-icon">↘</div><div><strong>PRICE<span>TRACKER</span></strong><small>Ваш мониторинг скидок</small></div></div>
+      <div class="top-right"><span id="server-status" class="pill">● Подключение...</span><span class="subtitle">Личный кабинет</span></div>
+    </header>
+    <section class="intro">
+      <div><div class="eyebrow">ЛИЧНЫЙ МОНИТОРИНГ ЦЕН</div><h1>Покупайте в нужный <em>момент.</em></h1><p>Следите за ценами на Ozon. Укажите целевую стоимость — и получайте уведомления в Telegram при снижении цены.</p></div>
+      <div class="intro-glow">₽<span>↓</span></div>
+    </section>
+    <section class="metrics">
+      <div class="metric"><span>Всего товаров</span><strong id="count">0</strong><small>Только Ozon</small></div>
+      <div class="metric"><span>Ниже целевой цены</span><strong id="below">0</strong><small>Есть смысл купить</small></div>
+      <div class="metric"><span>Последние проверки</span><strong id="checked">0</strong><small>С успешной ценой</small></div>
+      <div class="metric"><span>Интервал мониторинга</span><strong id="interval">60 мин</strong><small id="next-check">Автоматическая проверка</small></div>
+    </section>
+    <section class="add-section">
+      <div class="section-heading"><div><div class="eyebrow">НОВЫЙ ТОВАР</div><h2>Начать отслеживание</h2></div><span class="hint">Можно вставить полную или короткую ссылку Ozon, либо артикул</span></div>
+      <form id="add-form" class="form">
+        <label class="url-field"><span>Ссылка на товар или артикул</span><input id="link" type="text" required placeholder="https://www.ozon.ru/product/..." autocomplete="off"></label>
+        <label><span>Тип цены</span><select id="price-kind"><option value="regular">С другими банками</option><option value="card">По карте OZON</option></select></label>
+        <label><span>Целевая цена, ₽</span><input id="target" type="number" min="0.01" step="0.01" placeholder="1999" required></label>
+        <button class="primary" id="add-button" type="submit">＋ Добавить товар</button>
+      </form>
+      <p class="form-help">Цена может зависеть от региона и персональных скидок. При блокировке карточка сохраняется, а проверка повторится позже.</p>
+      <div id="message" class="message" role="status" hidden></div>
+    </section>
+    <section class="products-section">
+      <div class="section-heading"><div><div class="eyebrow">ВАШ СПИСОК</div><h2>Отслеживаемые товары</h2></div><button id="refresh" class="outline" type="button">↻ Обновить список</button></div>
+      <div class="filterbar">
+        <label><span>Поиск товаров</span><input id="search-products" type="search" placeholder="Название или артикул" autocomplete="off"></label>
+        <label><span>Сортировать</span><select id="sort-products"><option value="added">Сначала новые</option><option value="discount">По снижению цены</option><option value="price">По текущей цене</option><option value="errors">С ошибками выше</option></select></label>
+        <label><span>Показывать</span><select id="filter-products"><option value="all">Все товары</option><option value="active">Активные</option><option value="paused">На паузе</option><option value="below">Цель достигнута</option><option value="errors">С ошибками</option></select></label>
+      </div>
+      <div id="products" class="products-grid"></div>
+    </section>
+    <footer><span>Ozon Price Tracker 2.0</span><span>Персональный проект · не является сервисом Ozon</span></footer>
+  </main>
+  <dialog id="history-dialog">
+    <div class="dialog-head"><div><div class="eyebrow">АНАЛИТИКА И ИСТОРИЯ</div><h2 id="history-title">График цены</h2></div><button id="close-history" class="icon-button" aria-label="Закрыть">×</button></div>
+    <div id="history-analytics" class="history-analytics"></div>
+    <div class="chart-legend"><span class="legend-chip"><i class="legend-dot card-dot"></i>По карте OZON</span><span class="legend-chip"><i class="legend-dot regular-dot"></i>С другими банками</span><span class="legend-chip"><i class="legend-dash"></i>Целевая цена</span></div>
+    <div class="chart-frame"><canvas id="price-chart" height="300"></canvas><div id="chart-tooltip" class="chart-tooltip" hidden></div></div>
+    <p id="chart-subtitle" class="form-help"></p>
+  </dialog>
+</body>
+</html>
